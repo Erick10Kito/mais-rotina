@@ -30,7 +30,7 @@ export function Dashboard({
         <div className="flex gap-2 items-center">
           <p className="text-[#8284FA] text-sm font-bold">Concluidas</p>
           <span className="text-[#D9D9D9] bg-[#333] py-[2px] px-2 rounded-full text-xs font-bold">
-         {tarefasConcluidas.length}
+         {tarefasConcluidas.length} de {tarefas.length}
           </span>
         </div>
       </header>
