@@ -5,19 +5,16 @@ import { Tarefa } from "../Tarefa";
 interface IDashboardProps {
   tarefas: ITarefas[];
   DeleteTask: (TasktoDelete: string) => void;
-  updateCompleted:(taskId: string, completed: boolean)=> void
- 
+  updateCompletedtasks: (taskId: string, isCompleted: boolean) => void;
 }
 
 export function Dashboard({
   tarefas,
   DeleteTask,
-  updateCompleted
-
+  updateCompletedtasks,
 }: IDashboardProps) {
-  const tarefasConcluidas = tarefas.filter((tarefa) => tarefa.completed);
+  const CompletedTasks = tarefas.filter((tarefa) => tarefa.completed);
 
-  
   return (
     <div>
       <header className="pb-[25px] border-b border-[#333] flex justify-between items-center">
@@ -30,22 +27,25 @@ export function Dashboard({
         <div className="flex gap-2 items-center">
           <p className="text-[#8284FA] text-sm font-bold">Concluidas</p>
           <span className="text-[#D9D9D9] bg-[#333] py-[2px] px-2 rounded-full text-xs font-bold">
-         {tarefasConcluidas.length} de {tarefas.length}
+            {CompletedTasks.length} de {tarefas.length}
           </span>
         </div>
       </header>
-      <div>
+      <div
+        className={`${
+          tarefas.length >= 6 && "overflow-y-scroll max-h-[465px]"
+        }`}
+      >
         {tarefas.length > 0 ? (
           <div className="flex flex-col gap-3">
             {tarefas.map((tarefa) => (
               <div key={tarefa.id}>
                 <Tarefa
-               
                   title={tarefa.title}
                   DeleteTask={DeleteTask}
                   id={tarefa.id}
                   completed={tarefa.completed}
-                  updateCompleted={updateCompleted}
+                  updateCompletedtasks={updateCompletedtasks}
                 />
               </div>
             ))}

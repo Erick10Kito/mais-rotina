@@ -15,9 +15,6 @@ import { ITarefas } from "./types/todo.ds";
 function App() {
   const [newTask, setNewTask] = useState("");
   const [tarefas, setTarefas] = useState<ITarefas[]>([]);
-  
-
-
 
   function handleNewTaskChange(event: ChangeEvent<HTMLInputElement>) {
     setNewTask(event.target.value);
@@ -27,8 +24,7 @@ function App() {
     const newTarefa: ITarefas = {
       id: Math.random().toString(),
       title: newTask,
-      completed:false
-
+      completed: false,
     };
     setTarefas([...tarefas, newTarefa]);
   }
@@ -40,16 +36,15 @@ function App() {
     setTarefas(tasksWithoutDeleted);
   }
 
-  
-  function updateCompleted(taskId:string, completed:boolean) {
-    const updateTarefas = tarefas.map((tarefa)=> {
-      if(tarefa.id === taskId) {
-        return{...tarefa,completed}
+  function updateCompletedtasks(taskId: string, completed: boolean) {
+    const tasksWithUpdateInCompleted = tarefas.map((tarefa) => {
+      if (tarefa.id === taskId) {
+        return { ...tarefa, completed };
       }
-      return tarefa
-    })
-    setTarefas(updateTarefas)
-      }
+      return tarefa;
+    });
+    setTarefas(tasksWithUpdateInCompleted);
+  }
 
   return (
     <>
@@ -66,8 +61,7 @@ function App() {
             <Dashboard
               tarefas={tarefas}
               DeleteTask={DeleteTask}
-              updateCompleted={updateCompleted}
-       
+              updateCompletedtasks={updateCompletedtasks}
             />
           </div>
         </div>

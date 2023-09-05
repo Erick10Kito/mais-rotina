@@ -1,14 +1,11 @@
-import { useState } from "react";
-
+import { Trash } from "@phosphor-icons/react";
 
 interface ITarefaProps {
   title: string;
   DeleteTask: (TasktoDelete: string) => void;
   id: string;
-  completed:boolean
-  updateCompleted:(taskId: string, completed: boolean) => void
-
-  
+  completed: boolean;
+  updateCompletedtasks: (taskId: string, isCompleted: boolean) => void;
 }
 
 export function Tarefa({
@@ -16,18 +13,14 @@ export function Tarefa({
   DeleteTask,
   id,
   completed,
-  updateCompleted
-
+  updateCompletedtasks,
 }: ITarefaProps) {
-const [ischecked, setIsChecked] = useState(completed)
-
   function handleDeleteTask() {
     DeleteTask(id);
   }
 
-  function handleCheckBoxChange() {
-    setIsChecked(!ischecked )
-    updateCompleted(id, !ischecked)
+  function handleChangeCheckBox() {
+    updateCompletedtasks(id, !completed);
   }
 
   return (
@@ -36,13 +29,17 @@ const [ischecked, setIsChecked] = useState(completed)
         <input
           type="checkbox"
           className="mt-[6px]"
-          checked={ischecked}
-          onChange={handleCheckBoxChange}
-        
+          checked={completed}
+          onChange={handleChangeCheckBox}
         />
         <p className="text-left m-0 text-[#F2F2F2]">{title}</p>
       </div>
-      <button onClick={handleDeleteTask}>Excluir</button>
+      <button
+        onClick={handleDeleteTask}
+        className="hover:bg-zinc-700 w-8 h-8 flex justify-center items-center rounded-full"
+      >
+        <Trash size={20} color="white" />
+      </button>
     </div>
   );
 }
