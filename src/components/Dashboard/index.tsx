@@ -5,15 +5,19 @@ import { Tarefa } from "../Tarefa";
 interface IDashboardProps {
   tarefas: ITarefas[];
   DeleteTask: (TasktoDelete: string) => void;
-  handleCompletedTask: () => void;
+  updateCompleted:(taskId: string, completed: boolean)=> void
+ 
 }
 
 export function Dashboard({
   tarefas,
   DeleteTask,
-  handleCompletedTask,
+  updateCompleted
+
 }: IDashboardProps) {
-  const filteredTask = tarefas.filter((tarefa) => tarefa.completed === true);
+  const tarefasConcluidas = tarefas.filter((tarefa) => tarefa.completed);
+
+  
   return (
     <div>
       <header className="pb-[25px] border-b border-[#333] flex justify-between items-center">
@@ -26,7 +30,7 @@ export function Dashboard({
         <div className="flex gap-2 items-center">
           <p className="text-[#8284FA] text-sm font-bold">Concluidas</p>
           <span className="text-[#D9D9D9] bg-[#333] py-[2px] px-2 rounded-full text-xs font-bold">
-            {filteredTask.length}
+         {tarefasConcluidas.length}
           </span>
         </div>
       </header>
@@ -36,10 +40,12 @@ export function Dashboard({
             {tarefas.map((tarefa) => (
               <div key={tarefa.id}>
                 <Tarefa
-                  handleCompletedTask={handleCompletedTask}
+               
                   title={tarefa.title}
                   DeleteTask={DeleteTask}
                   id={tarefa.id}
+                  completed={tarefa.completed}
+                  updateCompleted={updateCompleted}
                 />
               </div>
             ))}

@@ -1,20 +1,33 @@
 import { useState } from "react";
 
+
 interface ITarefaProps {
   title: string;
   DeleteTask: (TasktoDelete: string) => void;
   id: string;
-  handleCompletedTask: () => void;
+  completed:boolean
+  updateCompleted:(taskId: string, completed: boolean) => void
+
+  
 }
 
 export function Tarefa({
   title,
   DeleteTask,
   id,
-  handleCompletedTask,
+  completed,
+  updateCompleted
+
 }: ITarefaProps) {
+const [ischecked, setIsChecked] = useState(completed)
+
   function handleDeleteTask() {
     DeleteTask(id);
+  }
+
+  function handleCheckBoxChange() {
+    setIsChecked(!ischecked )
+    updateCompleted(id, !ischecked)
   }
 
   return (
@@ -23,7 +36,9 @@ export function Tarefa({
         <input
           type="checkbox"
           className="mt-[6px]"
-          onChange={handleCompletedTask}
+          checked={ischecked}
+          onChange={handleCheckBoxChange}
+        
         />
         <p className="text-left m-0 text-[#F2F2F2]">{title}</p>
       </div>
