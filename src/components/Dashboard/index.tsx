@@ -1,19 +1,19 @@
-import { ITarefas } from "../../types/todo.ds";
+import { ITarefa } from "../../types/todo.ds";
 import { Clipboard } from "@phosphor-icons/react";
 import { Tarefa } from "../Tarefa";
 
 interface IDashboardProps {
-  tarefas: ITarefas[];
+  tasks: ITarefa[];
   DeleteTask: (TasktoDelete: string) => void;
-  updateCompletedtasks: (taskId: string, isCompleted: boolean) => void;
+  updateCompletedTasks: (taskId: string, isCompleted: boolean) => void;
 }
 
 export function Dashboard({
-  tarefas,
+  tasks,
   DeleteTask,
-  updateCompletedtasks,
+  updateCompletedTasks,
 }: IDashboardProps) {
-  const CompletedTasks = tarefas.filter((tarefa) => tarefa.completed);
+  const CompletedTasks = tasks.filter((tarefa) => tarefa.completed);
 
   return (
     <div>
@@ -21,31 +21,29 @@ export function Dashboard({
         <div className="flex gap-2 items-center">
           <p className="text-[#4EA8DE] text-sm font-bold">Tarefas criadas</p>
           <span className="text-[#D9D9D9] bg-[#333] py-[2px] px-2 rounded-full text-xs font-bold">
-            {tarefas.length}
+            {tasks.length}
           </span>
         </div>
         <div className="flex gap-2 items-center">
           <p className="text-[#8284FA] text-sm font-bold">Concluidas</p>
           <span className="text-[#D9D9D9] bg-[#333] py-[2px] px-2 rounded-full text-xs font-bold">
-            {CompletedTasks.length} de {tarefas.length}
+            {CompletedTasks.length} de {tasks.length}
           </span>
         </div>
       </header>
       <div
-        className={`${
-          tarefas.length >= 6 && "overflow-y-scroll max-h-[465px]"
-        }`}
+        className={`${tasks.length >= 6 && "overflow-y-scroll max-h-[465px]"}`}
       >
-        {tarefas.length > 0 ? (
+        {tasks.length > 0 ? (
           <div className="flex flex-col gap-3">
-            {tarefas.map((tarefa) => (
-              <div key={tarefa.id}>
+            {tasks.map((task) => (
+              <div key={task.id}>
                 <Tarefa
-                  title={tarefa.title ? tarefa.title : ""}
+                  title={task.title ? task.title : ""}
                   DeleteTask={DeleteTask}
-                  id={tarefa.id}
-                  completed={tarefa.completed ? tarefa.completed : false}
-                  updateCompletedtasks={updateCompletedtasks}
+                  id={task.id}
+                  completed={task.completed ? task.completed : false}
+                  updateCompletedtasks={updateCompletedTasks}
                 />
               </div>
             ))}

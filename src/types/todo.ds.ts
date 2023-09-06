@@ -1,4 +1,4 @@
-export interface ITarefas {
+export interface ITarefa {
   id: string;
   title?: string;
   completed?: boolean;

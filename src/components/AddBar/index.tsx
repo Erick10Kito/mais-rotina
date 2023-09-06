@@ -1,10 +1,13 @@
 import { PlusCircle } from "@phosphor-icons/react";
 import { ChangeEvent, FormEvent } from "react";
-interface IAddBar {
-  handleNewTaskChange: (event: ChangeEvent<HTMLInputElement>) => void;
+interface IAddBarProps {
+  handleNewTitleTaskChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handleCreateTask: (event: FormEvent) => void;
 }
-export function SearchBar({ handleNewTaskChange, handleCreateTask }: IAddBar) {
+export function AddBar({
+  handleNewTitleTaskChange,
+  handleCreateTask,
+}: IAddBarProps) {
   return (
     <form
       action=""
@@ -15,7 +18,7 @@ export function SearchBar({ handleNewTaskChange, handleCreateTask }: IAddBar) {
         type="text"
         placeholder="Adicione uma nova tarefa"
         className="bg-[#262626] border border-[#0D0D0D] p-4 w-full rounded-lg focus:outline-0 text-white"
-        onChange={handleNewTaskChange}
+        onChange={handleNewTitleTaskChange}
       />
       <button
         type="submit"
