@@ -4,15 +4,9 @@ import { Tarefa } from "../Tarefa";
 
 interface IDashboardProps {
   tasks: ITarefa[];
-  DeleteTask: (TasktoDelete: string) => void;
-  updateCompletedTasks: (taskId: string, isCompleted: boolean) => void;
 }
 
-export function Dashboard({
-  tasks,
-  DeleteTask,
-  updateCompletedTasks,
-}: IDashboardProps) {
+export function Dashboard({ tasks }: IDashboardProps) {
   const CompletedTasks = tasks.filter((tarefa) => tarefa.completed);
 
   return (
@@ -40,10 +34,8 @@ export function Dashboard({
               <div key={task.id}>
                 <Tarefa
                   title={task.title ? task.title : ""}
-                  DeleteTask={DeleteTask}
                   id={task.id}
                   completed={task.completed ? task.completed : false}
-                  updateCompletedtasks={updateCompletedTasks}
                 />
               </div>
             ))}

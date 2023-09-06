@@ -1,13 +1,21 @@
 import { PlusCircle } from "@phosphor-icons/react";
-import { ChangeEvent, FormEvent } from "react";
-interface IAddBarProps {
-  handleNewTitleTaskChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleCreateTask: (event: FormEvent) => void;
-}
-export function AddBar({
-  handleNewTitleTaskChange,
-  handleCreateTask,
-}: IAddBarProps) {
+import { addDoc } from "firebase/firestore";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { taskCollectionRef } from "../../config/firebase/firebase";
+
+export function AddBar() {
+  const [newTitleOfTask, setNewTitleOfTask] = useState("");
+  function handleNewTitleTaskChange(event: ChangeEvent<HTMLInputElement>) {
+    setNewTitleOfTask(event.target.value);
+  }
+
+  async function handleCreateTask(event: FormEvent) {
+    event.preventDefault();
+    await addDoc(taskCollectionRef, {
+      title: newTitleOfTask,
+      completed: false,
+    });
+  }
   return (
     <form
       action=""

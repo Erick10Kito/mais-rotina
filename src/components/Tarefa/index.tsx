@@ -1,26 +1,23 @@
 import { Trash } from "@phosphor-icons/react";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { db } from "../../config/firebase/firebase";
+import { keyTask } from "../../config/firebase/keys";
 
 interface ITarefaProps {
   title: string;
-  DeleteTask: (TasktoDelete: string) => void;
+
   id: string;
   completed: boolean;
-  updateCompletedtasks: (taskId: string, isCompleted: boolean) => void;
 }
 
-export function Tarefa({
-  title,
-  DeleteTask,
-  id,
-  completed,
-  updateCompletedtasks,
-}: ITarefaProps) {
-  function handleDeleteTask() {
-    DeleteTask(id);
+export function Tarefa({ title, id, completed }: ITarefaProps) {
+  async function handleDeleteTask(TasktoDelete: string) {
+    const taskDocRef = doc(db, keyTask, TasktoDelete);
+    await deleteDoc(taskDocRef);
   }
-
-  function handleChangeCheckBox() {
-    updateCompletedtasks(id, !completed);
+  async function updateCompletedTasks(taskId: string, completed: boolean) {
+    const taskDocRef = doc(db, keyTask, taskId);
+    await updateDoc(taskDocRef, { completed: completed });
   }
 
   return (
@@ -30,12 +27,12 @@ export function Tarefa({
           type="checkbox"
           className="mt-[6px]"
           checked={completed}
-          onChange={handleChangeCheckBox}
+          onChange={() => updateCompletedTasks(id, !completed)}
         />
         <p className="text-left m-0 text-[#F2F2F2]">{title}</p>
       </div>
       <button
-        onClick={handleDeleteTask}
+        onClick={() => handleDeleteTask(id)}
         className="hover:bg-zinc-700 w-8 h-8 flex justify-center items-center rounded-full"
       >
         <Trash size={20} color="white" />
