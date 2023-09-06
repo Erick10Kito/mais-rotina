@@ -41,10 +41,10 @@ export function Dashboard({
             {tarefas.map((tarefa) => (
               <div key={tarefa.id}>
                 <Tarefa
-                  title={tarefa.title}
+                  title={tarefa.title ? tarefa.title : ""}
                   DeleteTask={DeleteTask}
                   id={tarefa.id}
-                  completed={tarefa.completed}
+                  completed={tarefa.completed ? tarefa.completed : false}
                   updateCompletedtasks={updateCompletedtasks}
                 />
               </div>

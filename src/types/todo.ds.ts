@@ -1,6 +1,5 @@
 export interface ITarefas {
   id: string;
-  title: string;
-  completed:boolean
-
+  title?: string;
+  completed?: boolean;
 }
