@@ -31,9 +31,9 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className="">
       <Header />
-      <div className="flex justify-center bg-[#1A1A1A]  ">
+      <div className="flex justify-center bg-[#1A1A1A]  px-4">
         <div className="max-w-7xl w-full h-screen">
           <div className="mt-[-26px] flex justify-center w-full">
             <AddBar />
@@ -43,7 +43,7 @@ function App() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
