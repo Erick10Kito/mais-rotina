@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { collection, getFirestore } from "firebase/firestore";
+import { keyTask } from "./keys";
 
 const firebaseApp = initializeApp({
   apiKey: import.meta.env.VITE_REACT_APP_API_KEY,
@@ -9,7 +10,6 @@ const firebaseApp = initializeApp({
   messagingSenderId: import.meta.env.VITE_REACT_APP_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_REACT_APP_ID,
 });
-export const keyTask = "tasks";
 
 export const db = getFirestore(firebaseApp);
 
