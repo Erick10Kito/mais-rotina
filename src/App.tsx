@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
+
+import { onSnapshot } from "firebase/firestore";
+
+import "./globals.css";
+
 import { Dashboard } from "./components/Dashboard";
 import { Header } from "./components/Header";
 import { AddBar } from "./components/AddBar";
-import "./globals.css";
-import { ITarefa } from "./types/todo.ds";
 
-import { onSnapshot } from "firebase/firestore";
 import { taskCollectionRef } from "./config/firebase/firebase";
+
+import { ITarefa } from "./types/todo.ds";
 
 function App() {
   const [tasks, setTasks] = useState<ITarefa[]>([]);

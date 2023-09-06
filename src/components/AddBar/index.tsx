@@ -1,7 +1,10 @@
-import { PlusCircle } from "@phosphor-icons/react";
-import { addDoc } from "firebase/firestore";
 import { ChangeEvent, FormEvent, useState } from "react";
+
+import { addDoc } from "firebase/firestore";
+
 import { taskCollectionRef } from "../../config/firebase/firebase";
+
+import { PlusCircle } from "@phosphor-icons/react";
 
 export function AddBar() {
   const [newTitleOfTask, setNewTitleOfTask] = useState("");

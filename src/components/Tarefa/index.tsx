@@ -1,7 +1,9 @@
-import { Trash } from "@phosphor-icons/react";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+
 import { db } from "../../config/firebase/firebase";
 import { keyTask } from "../../config/firebase/keys";
+
+import { Trash } from "@phosphor-icons/react";
 
 interface ITarefaProps {
   title: string;

@@ -1,6 +1,8 @@
-import { ITarefa } from "../../types/todo.ds";
-import { Clipboard } from "@phosphor-icons/react";
 import { Tarefa } from "../Tarefa";
+
+import { ITarefa } from "../../types/todo.ds";
+
+import { Clipboard } from "@phosphor-icons/react";
 
 interface IDashboardProps {
   tasks: ITarefa[];
