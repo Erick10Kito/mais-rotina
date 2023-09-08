@@ -27,8 +27,8 @@ export function Tarefa({ title, id, completed }: ITarefaProps) {
       <div className="flex gap-2 items-start">
         <input
           className="relative cursor-pointer peer appearance-none w-6 h-6 min-w-[24px] border rounded-full focus:outline-none checked:bg-[#5E60CE] hover:ring hover:ring-gray-700
-          after:content-[''] after:w-full after:h-full after:absolute after:left-0 after:bg-no-repeat after:bg-center after:bg-[length:20px]
-          checked:after:bg-[url('https://o.remove.bg/downloads/7498f271-06f6-4ba6-a713-c6a0379a1ad4/image-removebg-preview.png')]
+          after:content-[''] after:w-full after:h-full after:absolute after:left-0 after:bg-no-repeat after:bg-center after:bg-[length:15px]
+          checked:after:bg-[url('https://i.imgur.com/L9oXjM2.png')]
           "
           type="checkbox"
           checked={completed}

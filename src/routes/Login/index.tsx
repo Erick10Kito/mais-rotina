@@ -1,0 +1,54 @@
+import { Link } from "react-router-dom";
+import { Logo } from "../../components/Logo";
+
+export function Login() {
+  return (
+    <div className="flex justify-center bg-[#1A1A1A] py-10">
+      <div className="max-w-7xl bg-[#0D0D0D] h-screen w-full rounded flex flex-col items-center justify-center py-10 gap-5">
+        <div className="">
+          <Logo />
+        </div>
+        <div className="max-w-xl w-full">
+          <form className="flex flex-col gap-5">
+            <input
+              className="bg-[#262626] border border-[#0D0D0D] p-4 w-full rounded-lg focus:outline-0 text-white"
+              type="text"
+              name="email"
+              id="email"
+              placeholder="Digite seu e-mail"
+            />
+
+            <input
+              className="bg-[#262626] border border-[#0D0D0D] p-4 w-full rounded-lg focus:outline-0 text-white"
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Digite sua senha"
+            />
+            <a
+              href="#"
+              className="text-[#5E60CE] flex justify-center transition hover:underline text-base"
+            >
+              Esqueceu sua senha?
+            </a>
+            <button
+              type="submit"
+              className="text-white text-xl font-bold bg-[#1E6F9F] p-4 rounded-lg hover:opacity-75 transition duration-[350ms] "
+            >
+              Entrar
+            </button>
+            <div className="flex gap-1 items-center">
+              <p className="text-white text-base">Você não tem conta?</p>
+              <Link
+                to="/cadastro"
+                className="text-[#5E60CE] transition hover:underline text-base"
+              >
+                Crie sua conta aqui
+              </Link>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}

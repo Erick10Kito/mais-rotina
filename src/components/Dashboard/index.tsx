@@ -28,7 +28,9 @@ export function Dashboard({ tasks }: IDashboardProps) {
         </div>
       </header>
       <div
-        className={`${tasks.length >= 6 && "overflow-y-scroll max-h-[465px]"}`}
+        className={`${
+          tasks.length >= 6 && "overflow-y-scroll max-h-[465px]"
+        } mt-5`}
       >
         {tasks.length > 0 ? (
           <div className="flex flex-col gap-3">

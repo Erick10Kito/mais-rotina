@@ -18,6 +18,7 @@ export function AddBar() {
       title: newTitleOfTask,
       completed: false,
     });
+    setNewTitleOfTask("");
   }
   return (
     <form
@@ -30,6 +31,7 @@ export function AddBar() {
         placeholder="Adicione uma nova tarefa"
         className="bg-[#262626] border border-[#0D0D0D] p-4 w-full rounded-lg focus:outline-0 text-white"
         onChange={handleNewTitleTaskChange}
+        value={newTitleOfTask}
       />
       <button
         type="submit"

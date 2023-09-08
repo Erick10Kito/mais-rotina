@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { collection, getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import { keyTask } from "./keys";
 
 const firebaseApp = initializeApp({
@@ -14,3 +15,4 @@ const firebaseApp = initializeApp({
 export const db = getFirestore(firebaseApp);
 
 export const taskCollectionRef = collection(db, keyTask);
+export const auth = getAuth(firebaseApp);
