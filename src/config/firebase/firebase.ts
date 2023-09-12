@@ -3,7 +3,7 @@ import { collection, getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { keyTask } from "./keys";
 
-const firebaseApp = initializeApp({
+export const firebaseApp = initializeApp({
   apiKey: import.meta.env.VITE_REACT_APP_API_KEY,
   authDomain: import.meta.env.VITE_REACT_APP_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_REACT_APP_PROJECT_ID,

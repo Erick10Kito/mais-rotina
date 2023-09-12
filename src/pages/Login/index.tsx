@@ -1,25 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Logo } from "../../components/Logo";
-import { useState } from "react";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "../../config/firebase/firebase";
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 
-export function Cadastro() {
+import { auth } from "../../config/firebase/firebase";
+import { Context } from "../../context/AuthContext";
+import { signInWithEmailAndPassword } from "firebase/auth";
+
+export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
+  const context = useContext(Context);
 
-  function handleSignIn(e: FormEvent) {
+  async function handleSignIn(e: FormEvent) {
     e.preventDefault();
-    createUserWithEmailAndPassword(email, password);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+
+      navigate("/home");
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  if (loading) {
-    return <p>Carregando...</p>;
-  }
   return (
     <div className="flex justify-center bg-[#1A1A1A] py-10">
       <div className="max-w-7xl bg-[#0D0D0D] h-screen w-full rounded flex flex-col items-center justify-center py-10 gap-5">
@@ -33,7 +37,7 @@ export function Cadastro() {
               type="text"
               name="email"
               id="email"
-              placeholder="Digite seu e-mail"
+              placeholder="johndoe@gmail.com"
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setEmail(e.target.value)
               }
@@ -44,26 +48,31 @@ export function Cadastro() {
               type="password"
               name="password"
               id="password"
-              placeholder="Digite sua senha"
+              placeholder="********************"
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setPassword(e.target.value)
               }
             />
-
+            <a
+              href="#"
+              className="text-[#5E60CE] flex justify-center transition hover:underline text-base"
+            >
+              Esqueceu sua senha?
+            </a>
             <button
               onClick={handleSignIn}
               type="submit"
               className="text-white text-xl font-bold bg-[#1E6F9F] p-4 rounded-lg hover:opacity-75 transition duration-[350ms] "
             >
-              Cadastrar
+              Entrar
             </button>
             <div className="flex gap-1 items-center">
-              <p className="text-white text-base">Ja tem um conta?</p>
+              <p className="text-white text-base">Você não tem conta?</p>
               <Link
-                to="/login"
+                to="/cadastro"
                 className="text-[#5E60CE] transition hover:underline text-base"
               >
-                Entre aqui
+                Crie sua conta aqui
               </Link>
             </div>
           </form>

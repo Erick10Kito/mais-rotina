@@ -1,49 +1,55 @@
-import { useEffect, useState } from "react";
-
-import { onSnapshot } from "firebase/firestore";
-
 import "./globals.css";
 
-import { Dashboard } from "./components/Dashboard";
-import { Header } from "./components/Header";
-import { AddBar } from "./components/AddBar";
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
+import { Login } from "./pages/Login";
+import { Home } from "./pages/Home";
+import { Cadastro } from "./pages/Cadastro";
 
-import { taskCollectionRef } from "./config/firebase/firebase";
+import { ReactNode, useContext } from "react";
+import { Context } from "./context/AuthContext";
 
-import { ITarefa } from "./types/todo.ds";
+interface IProtectedProps {
+  children: ReactNode;
+}
+
+function Protected({ children }: IProtectedProps) {
+  const { user } = useContext(Context);
+
+  if (user) {
+    console.log("LOGADO");
+
+    console.log(user);
+    return children;
+  } else if (user == null) {
+    console.log("NÃO LOGADO");
+    console.log(user);
+
+    return <Navigate to="/" />;
+  }
+}
 
 function App() {
-  const [tasks, setTasks] = useState<ITarefa[]>([]);
-
-  //console.log(tarefas);
-
-  useEffect(() => {
-    console.log(tasks);
-    const updatesInRealTime = onSnapshot(taskCollectionRef, (snapshot) => {
-      const databaseTask = snapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setTasks(databaseTask);
-    });
-
-    return () => updatesInRealTime();
-  }, []);
-
   return (
-    <div className="">
-      <Header />
-      <div className="flex justify-center bg-[#1A1A1A]  px-4">
-        <div className="max-w-7xl w-full h-screen max-[479px]:h-full pb-10">
-          <div className="mt-[-26px] flex justify-center w-full">
-            <AddBar />
-          </div>
-          <div className="mt-16">
-            <Dashboard tasks={tasks} />
-          </div>
-        </div>
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route
+          element={
+            <Protected>
+              <Home />
+            </Protected>
+          }
+          path="/home"
+        />
+
+        <Route element={<Login />} path="/" />
+        <Route element={<Cadastro />} path="/cadastro" />
+      </Routes>
+    </Router>
   );
 }
 
