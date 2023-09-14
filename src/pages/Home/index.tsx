@@ -35,7 +35,11 @@ export function Home() {
       <Header />
       <h1></h1>
       <div className="flex justify-center bg-[#1A1A1A]  px-4">
-        <div className="max-w-7xl w-full h-screen max-[479px]:h-full pb-10">
+        <div
+          className={`max-w-7xl w-full h-screen  pb-10 ${
+            tasks.length > 6 && "max-[479px]:h-full"
+          }`}
+        >
           <div className="mt-[-26px] flex justify-center w-full">
             <AddBar />
           </div>
