@@ -1,17 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Logo } from "../../components/Logo";
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 import { auth } from "../../config/firebase/firebase";
-import { Context } from "../../context/AuthContext";
+
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
-  const context = useContext(Context);
 
   async function handleSignIn(e: FormEvent) {
     e.preventDefault();

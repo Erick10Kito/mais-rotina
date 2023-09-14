@@ -1,6 +1,7 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { ReactNode, createContext, useEffect } from "react";
 import { auth } from "../config/firebase/firebase";
 import { User, onAuthStateChanged } from "firebase/auth";
+import useLocalStorageState from "use-local-storage-state";
 
 interface IAuthContextProps {
   children: ReactNode;
@@ -12,14 +13,14 @@ interface IContextProps {
 export const Context = createContext<IContextProps>({} as IContextProps);
 
 export function AuthContext({ children }: IAuthContextProps) {
-  const [user, setUser] = useState<null | User>(null);
+  const [user, setUser] = useLocalStorageState<User | null>("UserOfToDoList", {
+    defaultValue: null,
+  });
 
   useEffect(() => {
     console.log(user);
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-
-      console.log(currentUser);
     });
 
     return () => unsubscribe();
