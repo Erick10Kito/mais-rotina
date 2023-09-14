@@ -3,13 +3,17 @@ import { Tarefa } from "../Tarefa";
 import { ITarefa } from "../../types/todo.ds";
 
 import { Clipboard } from "@phosphor-icons/react";
+import { Context } from "../../context/AuthContext";
+import { useContext } from "react";
 
 interface IDashboardProps {
   tasks: ITarefa[];
 }
 
 export function Dashboard({ tasks }: IDashboardProps) {
-  const CompletedTasks = tasks.filter((tarefa) => tarefa.completed);
+  const { user } = useContext(Context);
+  const UserTasks = tasks.filter((task) => task.userId === user?.uid);
+  const CompletedTasks = UserTasks.filter((tarefa) => tarefa.completed);
 
   return (
     <div>
@@ -17,13 +21,13 @@ export function Dashboard({ tasks }: IDashboardProps) {
         <div className="flex gap-2 items-center">
           <p className="text-[#4EA8DE] text-sm font-bold">Tarefas criadas</p>
           <span className="text-[#D9D9D9] bg-[#333] py-[2px] px-2 rounded-full text-xs font-bold">
-            {tasks.length}
+            {UserTasks.length}
           </span>
         </div>
         <div className="flex gap-2 items-center">
           <p className="text-[#8284FA] text-sm font-bold">Concluidas</p>
           <span className="text-[#D9D9D9] bg-[#333] py-[2px] px-2 rounded-full text-xs font-bold">
-            {CompletedTasks.length} de {tasks.length}
+            {CompletedTasks.length} de {UserTasks.length}
           </span>
         </div>
       </header>
@@ -32,14 +36,14 @@ export function Dashboard({ tasks }: IDashboardProps) {
           tasks.length >= 6 && "overflow-y-scroll max-h-[465px]"
         } mt-5`}
       >
-        {tasks.length > 0 ? (
+        {UserTasks.length > 0 ? (
           <div className="flex flex-col gap-3">
-            {tasks.map((task) => (
-              <div key={task.id}>
+            {UserTasks.map((UserTask) => (
+              <div key={UserTask.id}>
                 <Tarefa
-                  title={task.title ? task.title : ""}
-                  id={task.id}
-                  completed={task.completed ? task.completed : false}
+                  title={UserTask.title ? UserTask.title : ""}
+                  id={UserTask.id}
+                  completed={UserTask.completed ? UserTask.completed : false}
                 />
               </div>
             ))}

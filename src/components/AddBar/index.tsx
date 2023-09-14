@@ -1,12 +1,14 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 
 import { addDoc } from "firebase/firestore";
 
 import { taskCollectionRef } from "../../config/firebase/firebase";
 
 import { PlusCircle } from "@phosphor-icons/react";
+import { Context } from "../../context/AuthContext";
 
 export function AddBar() {
+  const { user } = useContext(Context);
   const [newTitleOfTask, setNewTitleOfTask] = useState("");
   function handleNewTitleTaskChange(event: ChangeEvent<HTMLInputElement>) {
     setNewTitleOfTask(event.target.value);
@@ -17,6 +19,7 @@ export function AddBar() {
     await addDoc(taskCollectionRef, {
       title: newTitleOfTask,
       completed: false,
+      userId: user?.uid,
     });
     setNewTitleOfTask("");
   }
