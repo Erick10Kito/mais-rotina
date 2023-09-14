@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { collection, doc, getFirestore } from "firebase/firestore";
+import { collection, getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { keyTask, keyUser } from "./keys";
+import { keyTask } from "./keys";
 
 export const firebaseApp = initializeApp({
   apiKey: import.meta.env.VITE_REACT_APP_API_KEY,
@@ -15,5 +15,4 @@ export const firebaseApp = initializeApp({
 export const db = getFirestore(firebaseApp);
 
 export const taskCollectionRef = collection(db, keyTask);
-
 export const auth = getAuth(firebaseApp);

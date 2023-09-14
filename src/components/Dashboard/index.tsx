@@ -3,16 +3,12 @@ import { Tarefa } from "../Tarefa";
 import { ITarefa } from "../../types/todo.ds";
 
 import { Clipboard } from "@phosphor-icons/react";
-import { Context } from "../../context/AuthContext";
-import { useContext } from "react";
 
 interface IDashboardProps {
   tasks: ITarefa[];
 }
 
 export function Dashboard({ tasks }: IDashboardProps) {
-  const { user } = useContext(Context);
-
   const CompletedTasks = tasks.filter((tarefa) => tarefa.completed);
 
   return (
@@ -38,12 +34,12 @@ export function Dashboard({ tasks }: IDashboardProps) {
       >
         {tasks.length > 0 ? (
           <div className="flex flex-col gap-3">
-            {tasks.map((UserTask) => (
-              <div key={UserTask.id}>
+            {tasks.map((tasks) => (
+              <div key={tasks.id}>
                 <Tarefa
-                  title={UserTask.title ? UserTask.title : ""}
-                  id={UserTask.id}
-                  completed={UserTask.completed ? UserTask.completed : false}
+                  title={tasks.title ? tasks.title : ""}
+                  id={tasks.id}
+                  completed={tasks.completed ? tasks.completed : false}
                 />
               </div>
             ))}

@@ -4,8 +4,8 @@ import { db } from "../../config/firebase/firebase";
 import { keyTask, keyUserTasks } from "../../config/firebase/keys";
 
 import { Trash } from "@phosphor-icons/react";
-import { Context } from "../../context/AuthContext";
 import { useContext } from "react";
+import { Context } from "../../context/AuthContext";
 
 interface ITarefaProps {
   title: string;
@@ -16,18 +16,15 @@ interface ITarefaProps {
 
 export function Tarefa({ title, id, completed }: ITarefaProps) {
   const { user } = useContext(Context);
-
   async function handleDeleteTask(TasktoDelete: string) {
-    const refT = doc(db, keyUserTasks, String(user?.uid));
-    const collectionTask = collection(refT, keyTask);
-
+    const userRefTask = doc(db, keyUserTasks, String(user?.uid)); //Fiz isso para acessar o usuario
+    const collectionTask = collection(userRefTask, keyTask); //uso isso para acessar a task
     const taskDocRef = doc(collectionTask, TasktoDelete);
     await deleteDoc(taskDocRef);
   }
   async function updateCompletedTasks(taskId: string, completed: boolean) {
-    const refT = doc(db, keyUserTasks, String(user?.uid));
-    const collectionTask = collection(refT, keyTask);
-
+    const userRefTask = doc(db, keyUserTasks, String(user?.uid)); //Fiz isso para acessar o usuario
+    const collectionTask = collection(userRefTask, keyTask); //uso isso para acessar a task
     const taskDocRef = doc(collectionTask, taskId);
     await updateDoc(taskDocRef, { completed: completed });
   }
