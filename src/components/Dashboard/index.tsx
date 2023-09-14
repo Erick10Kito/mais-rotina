@@ -12,8 +12,8 @@ interface IDashboardProps {
 
 export function Dashboard({ tasks }: IDashboardProps) {
   const { user } = useContext(Context);
-  const UserTasks = tasks.filter((task) => task.userId === user?.uid);
-  const CompletedTasks = UserTasks.filter((tarefa) => tarefa.completed);
+
+  const CompletedTasks = tasks.filter((tarefa) => tarefa.completed);
 
   return (
     <div>
@@ -21,13 +21,13 @@ export function Dashboard({ tasks }: IDashboardProps) {
         <div className="flex gap-2 items-center">
           <p className="text-[#4EA8DE] text-sm font-bold">Tarefas criadas</p>
           <span className="text-[#D9D9D9] bg-[#333] py-[2px] px-2 rounded-full text-xs font-bold">
-            {UserTasks.length}
+            {tasks.length}
           </span>
         </div>
         <div className="flex gap-2 items-center">
           <p className="text-[#8284FA] text-sm font-bold">Concluidas</p>
           <span className="text-[#D9D9D9] bg-[#333] py-[2px] px-2 rounded-full text-xs font-bold">
-            {CompletedTasks.length} de {UserTasks.length}
+            {CompletedTasks.length} de {tasks.length}
           </span>
         </div>
       </header>
@@ -36,9 +36,9 @@ export function Dashboard({ tasks }: IDashboardProps) {
           tasks.length >= 6 && "overflow-y-scroll max-h-[465px]"
         } mt-5`}
       >
-        {UserTasks.length > 0 ? (
+        {tasks.length > 0 ? (
           <div className="flex flex-col gap-3">
-            {UserTasks.map((UserTask) => (
+            {tasks.map((UserTask) => (
               <div key={UserTask.id}>
                 <Tarefa
                   title={UserTask.title ? UserTask.title : ""}

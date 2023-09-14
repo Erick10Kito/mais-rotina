@@ -1,11 +1,12 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 
-import { addDoc } from "firebase/firestore";
+import { addDoc, collection, doc } from "firebase/firestore";
 
-import { taskCollectionRef } from "../../config/firebase/firebase";
+import { db } from "../../config/firebase/firebase";
 
 import { PlusCircle } from "@phosphor-icons/react";
 import { Context } from "../../context/AuthContext";
+import { keyTask, keyUserTasks } from "../../config/firebase/keys";
 
 export function AddBar() {
   const { user } = useContext(Context);
@@ -16,13 +17,16 @@ export function AddBar() {
 
   async function handleCreateTask(event: FormEvent) {
     event.preventDefault();
-    await addDoc(taskCollectionRef, {
+    const refT = doc(db, keyUserTasks, String(user?.uid));
+    const collectionTask = collection(refT, keyTask);
+
+    await addDoc(collectionTask, {
       title: newTitleOfTask,
       completed: false,
-      userId: user?.uid,
     });
     setNewTitleOfTask("");
   }
+
   return (
     <form
       action=""

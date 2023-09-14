@@ -1,9 +1,11 @@
-import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, updateDoc } from "firebase/firestore";
 
 import { db } from "../../config/firebase/firebase";
-import { keyTask } from "../../config/firebase/keys";
+import { keyTask, keyUserTasks } from "../../config/firebase/keys";
 
 import { Trash } from "@phosphor-icons/react";
+import { Context } from "../../context/AuthContext";
+import { useContext } from "react";
 
 interface ITarefaProps {
   title: string;
@@ -13,12 +15,20 @@ interface ITarefaProps {
 }
 
 export function Tarefa({ title, id, completed }: ITarefaProps) {
+  const { user } = useContext(Context);
+
   async function handleDeleteTask(TasktoDelete: string) {
-    const taskDocRef = doc(db, keyTask, TasktoDelete);
+    const refT = doc(db, keyUserTasks, String(user?.uid));
+    const collectionTask = collection(refT, keyTask);
+
+    const taskDocRef = doc(collectionTask, TasktoDelete);
     await deleteDoc(taskDocRef);
   }
   async function updateCompletedTasks(taskId: string, completed: boolean) {
-    const taskDocRef = doc(db, keyTask, taskId);
+    const refT = doc(db, keyUserTasks, String(user?.uid));
+    const collectionTask = collection(refT, keyTask);
+
+    const taskDocRef = doc(collectionTask, taskId);
     await updateDoc(taskDocRef, { completed: completed });
   }
 

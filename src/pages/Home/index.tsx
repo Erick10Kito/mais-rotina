@@ -1,24 +1,29 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
-import { onSnapshot } from "firebase/firestore";
-import { taskCollectionRef } from "../../config/firebase/firebase";
+import { doc, onSnapshot, collection } from "firebase/firestore";
+import { db } from "../../config/firebase/firebase";
 import { Header } from "../../components/Header";
 import { AddBar } from "../../components/AddBar";
 import { Dashboard } from "../../components/Dashboard";
 import { ITarefa } from "../../types/todo.ds";
+import { Context } from "../../context/AuthContext";
+import { keyTask, keyUserTasks } from "../../config/firebase/keys";
 
 export function Home() {
   const [tasks, setTasks] = useState<ITarefa[]>([]);
-
-  //console.log(tarefas);
+  const { user } = useContext(Context);
 
   useEffect(() => {
     console.log(tasks);
-    const updatesInRealTime = onSnapshot(taskCollectionRef, (snapshot) => {
+    const refT = doc(db, keyUserTasks, String(user?.uid));
+    const collectionTask = collection(refT, keyTask);
+
+    const updatesInRealTime = onSnapshot(collectionTask, (snapshot) => {
       const databaseTask = snapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
+
       setTasks(databaseTask);
     });
 
