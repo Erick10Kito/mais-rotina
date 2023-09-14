@@ -11,19 +11,22 @@ interface IDashboardProps {
 export function Dashboard({ tasks }: IDashboardProps) {
   const CompletedTasks = tasks.filter((tarefa) => tarefa.completed);
 
+  const taskLength = tasks.length;
+  const CompletedTasksTotal = CompletedTasks.length;
+
   return (
     <div>
       <header className="pb-[25px] border-b border-[#333] flex justify-between items-center">
         <div className="flex gap-2 items-center">
           <p className="text-[#4EA8DE] text-sm font-bold">Tarefas criadas</p>
           <span className="text-[#D9D9D9] bg-[#333] py-[2px] px-2 rounded-full text-xs font-bold">
-            {tasks.length}
+            {taskLength}
           </span>
         </div>
         <div className="flex gap-2 items-center">
           <p className="text-[#8284FA] text-sm font-bold">Concluidas</p>
           <span className="text-[#D9D9D9] bg-[#333] py-[2px] px-2 rounded-full text-xs font-bold">
-            {CompletedTasks.length} de {tasks.length}
+            {CompletedTasksTotal} de {taskLength}
           </span>
         </div>
       </header>
