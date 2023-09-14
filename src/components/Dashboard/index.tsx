@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Tarefa } from "../Tarefa";
 
 import { ITarefa } from "../../types/todo.ds";
@@ -10,9 +11,12 @@ interface IDashboardProps {
 
 export function Dashboard({ tasks }: IDashboardProps) {
   const CompletedTasks = tasks.filter((tarefa) => tarefa.completed);
-
-  const taskLength = tasks.length;
-  const CompletedTasksTotal = CompletedTasks.length;
+  const [CompletedTasksTotal, setCompletedTasksTotal] = useState(0);
+  const [taskLength, setTasksLength] = useState(0);
+  useEffect(() => {
+    setCompletedTasksTotal(CompletedTasks.length);
+    setTasksLength(tasks.length);
+  }, [tasks]);
 
   return (
     <div>
