@@ -37,12 +37,12 @@ export function Dashboard({ tasks }: IDashboardProps) {
       >
         {tasks.length > 0 ? (
           <div className="flex flex-col gap-3">
-            {tasks.map((tasks) => (
-              <div key={tasks.id}>
+            {tasks.map((task) => (
+              <div key={task.id}>
                 <Tarefa
-                  title={tasks.title ? tasks.title : ""}
-                  id={tasks.id}
-                  completed={tasks.completed ? tasks.completed : false}
+                  title={task.title ? task.title : ""}
+                  id={task.id}
+                  completed={task.completed ? task.completed : false}
                 />
               </div>
             ))}
