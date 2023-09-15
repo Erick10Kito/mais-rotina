@@ -1,15 +1,15 @@
+import { useContext } from "react";
 import { Tarefa } from "../Tarefa";
 
-import { ITarefa } from "../../types/todo.ds";
-
 import { Clipboard } from "@phosphor-icons/react";
+import { TasksContext } from "../../context/TaskContext";
 
-interface IDashboardProps {
-  tasks: ITarefa[];
-}
-
-export function Dashboard({ tasks }: IDashboardProps) {
-  const CompletedTasks = tasks.filter((tarefa) => tarefa.completed);
+export function Dashboard() {
+  const { TasksRepository } = useContext(TasksContext);
+  const CompletedTasks = TasksRepository.read.filter(
+    (tarefa) => tarefa.completed
+  );
+  const tasks = TasksRepository.read;
 
   const taskLength = tasks.length;
   const CompletedTasksTotal = CompletedTasks.length;

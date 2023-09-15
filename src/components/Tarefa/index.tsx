@@ -1,11 +1,6 @@
-import { collection, deleteDoc, doc, updateDoc } from "firebase/firestore";
-
-import { db } from "../../config/firebase/firebase";
-import { keyTask, keyUserTasks } from "../../config/firebase/keys";
-
-import { Trash } from "@phosphor-icons/react";
 import { useContext } from "react";
-import { Context } from "../../context/AuthContext";
+import { NotePencil, Trash } from "@phosphor-icons/react";
+import { TasksContext } from "../../context/TaskContext";
 
 interface ITarefaProps {
   title: string;
@@ -14,23 +9,7 @@ interface ITarefaProps {
 }
 
 export function Tarefa({ title, id, completed }: ITarefaProps) {
-  const { user } = useContext(Context);
-
-  async function handleDeleteTask(TasktoDelete: string) {
-    if (confirm("Deseja excluir essa tarefa?")) {
-      const userRefTask = doc(db, keyUserTasks, String(user?.uid)); //Fiz isso para acessar o usuario
-      const collectionTask = collection(userRefTask, keyTask); //uso isso para acessar a task
-      const taskDocRef = doc(collectionTask, TasktoDelete);
-      await deleteDoc(taskDocRef);
-    }
-    return null;
-  }
-  async function updateCompletedTasks(taskId: string, completed: boolean) {
-    const userRefTask = doc(db, keyUserTasks, String(user?.uid)); //Fiz isso para acessar o usuario
-    const collectionTask = collection(userRefTask, keyTask); //uso isso para acessar a task
-    const taskDocRef = doc(collectionTask, taskId);
-    await updateDoc(taskDocRef, { completed: completed });
-  }
+  const { TasksRepository } = useContext(TasksContext);
 
   return (
     <div className="flex items-s tart justify-between p-4 self-stretch rounded-lg border border-[#333] bg-[#262626] ">
@@ -43,17 +22,22 @@ export function Tarefa({ title, id, completed }: ITarefaProps) {
           type="checkbox"
           checked={completed}
           id="completedCheckboxInput"
-          onChange={() => updateCompletedTasks(id, !completed)}
+          onChange={() => TasksRepository.completed(id, !completed)}
         />
 
         <p className="text-left m-0 text-[#F2F2F2]">{title}</p>
       </div>
-      <button
-        onClick={() => handleDeleteTask(id)}
-        className="w-6 h-6 rounded-full text-blue-500 border-blue-300 checked:bg-blue-500 checked:border-transparent focus:outline-none"
-      >
-        <Trash size={20} color="white" />
-      </button>
+      <div>
+        <button
+          onClick={() => TasksRepository.delete(id)}
+          className="w-6 h-6 rounded-full text-blue-500 border-blue-300 checked:bg-blue-500 checked:border-transparent focus:outline-none"
+        >
+          <Trash size={20} color="white" />
+        </button>
+        <button className="w-6 h-6 rounded-full text-blue-500 border-blue-300 checked:bg-blue-500 checked:border-transparent focus:outline-none">
+          <NotePencil size={20} color="white" />
+        </button>
+      </div>
     </div>
   );
 }
