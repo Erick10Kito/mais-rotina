@@ -3,4 +3,5 @@ export interface ITarefa {
   title?: string;
   completed?: boolean;
   userId?: string;
+  date?: string;
 }

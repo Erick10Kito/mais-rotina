@@ -11,9 +11,15 @@ import { Context } from "../../context/AuthContext";
 import { SignOut } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 
+interface IDatabaseTask {
+  id: string;
+  date?: string;
+}
+
 export function Home() {
   const { user } = useContext(Context);
   const [tasks, setTasks] = useState<ITarefa[]>([]);
+
   const navigate = useNavigate();
   function handleSignOut() {
     auth.signOut().then(() => {
@@ -21,18 +27,25 @@ export function Home() {
     });
   }
 
-  //console.log(tarefas);
-
   useEffect(() => {
     console.log(tasks);
     const userRefTask = doc(db, keyUserTasks, String(user?.uid));
     const collectionTask = collection(userRefTask, keyTask);
     const updatesInRealTime = onSnapshot(collectionTask, (snapshot) => {
-      const databaseTask = snapshot.docs.map((doc) => ({
+      const databaseTask: IDatabaseTask[] = snapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
-      setTasks(databaseTask);
+      console.log(databaseTask);
+      const databaseTaskDates = databaseTask.filter((item) => item.date);
+
+      const databaseTaskOrder = databaseTaskDates.sort((a, b) => {
+        return Number(b.date) - Number(a.date);
+      });
+
+      console.log(databaseTaskOrder);
+
+      setTasks(databaseTaskOrder);
     });
 
     return () => updatesInRealTime();

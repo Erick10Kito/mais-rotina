@@ -17,11 +17,13 @@ export function AddBar() {
 
   async function handleCreateTask(event: FormEvent) {
     event.preventDefault();
+    const currentDate = new Date();
     const userRefTask = doc(db, keyUserTasks, String(user?.uid));
     const collectionTask = collection(userRefTask, keyTask);
     await addDoc(collectionTask, {
       title: newTitleOfTask,
       completed: false,
+      date: currentDate,
     });
     setNewTitleOfTask("");
   }
