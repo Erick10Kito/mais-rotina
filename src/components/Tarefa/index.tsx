@@ -9,18 +9,21 @@ import { Context } from "../../context/AuthContext";
 
 interface ITarefaProps {
   title: string;
-
   id: string;
   completed: boolean;
 }
 
 export function Tarefa({ title, id, completed }: ITarefaProps) {
   const { user } = useContext(Context);
+
   async function handleDeleteTask(TasktoDelete: string) {
-    const userRefTask = doc(db, keyUserTasks, String(user?.uid)); //Fiz isso para acessar o usuario
-    const collectionTask = collection(userRefTask, keyTask); //uso isso para acessar a task
-    const taskDocRef = doc(collectionTask, TasktoDelete);
-    await deleteDoc(taskDocRef);
+    if (confirm("Deseja excluir essa tarefa?")) {
+      const userRefTask = doc(db, keyUserTasks, String(user?.uid)); //Fiz isso para acessar o usuario
+      const collectionTask = collection(userRefTask, keyTask); //uso isso para acessar a task
+      const taskDocRef = doc(collectionTask, TasktoDelete);
+      await deleteDoc(taskDocRef);
+    }
+    return null;
   }
   async function updateCompletedTasks(taskId: string, completed: boolean) {
     const userRefTask = doc(db, keyUserTasks, String(user?.uid)); //Fiz isso para acessar o usuario
