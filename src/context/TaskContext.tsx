@@ -2,7 +2,6 @@ import {
   ReactNode,
   createContext,
   useContext,
-  useEffect,
   useState,
   ChangeEvent,
   FormEvent,
@@ -10,11 +9,12 @@ import {
 import { ITarefa } from "../types/todo.ds";
 import { Context } from "./AuthContext";
 import {
+  CollectionReference,
+  DocumentData,
   addDoc,
   collection,
   deleteDoc,
   doc,
-  onSnapshot,
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../config/firebase/firebase";
@@ -33,11 +33,10 @@ interface ITasksContextProps {
   };
   handleNewTitleTaskChange: (event: ChangeEvent<HTMLInputElement>) => void;
   newTitleOfTask: string;
+  setTasks:React.Dispatch<React.SetStateAction<ITarefa[]>>
+  collectionTask:CollectionReference<DocumentData, DocumentData>
 }
-interface IDatabaseTask {
-  id: string;
-  date?: string;
-}
+
 
 export const TasksContext = createContext({} as ITasksContextProps);
 
@@ -50,24 +49,6 @@ export function TasksProvider({ children }: ITaskProviderProps) {
   const userRefTask = doc(db, keyUserTasks, String(user?.uid));
   const collectionTask = collection(userRefTask, keyTask);
 
-  useEffect(() => {
-    const updatesInRealTime = onSnapshot(collectionTask, (snapshot) => {
-      const databaseTask: IDatabaseTask[] = snapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-
-      const databaseTaskDates = databaseTask.filter((item) => item.date);
-
-      const databaseTaskOrder = databaseTaskDates.sort((a, b) => {
-        return Number(b.date) - Number(a.date);
-      });
-
-      setTasks(databaseTaskOrder);
-    });
-
-    return () => updatesInRealTime();
-  }, []);
 
   async function handleDeleteTask(id: string) {
     if (confirm("Deseja excluir essa tarefa?")) {
@@ -109,6 +90,8 @@ export function TasksProvider({ children }: ITaskProviderProps) {
         TasksRepository,
         handleNewTitleTaskChange,
         newTitleOfTask,
+        setTasks,
+        collectionTask
       }}
     >
       {children}

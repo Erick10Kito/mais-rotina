@@ -5,6 +5,14 @@ import { Dashboard } from "../../components/Dashboard";
 import { SignOut } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 import { AddOrEditBar } from "../../components/AddOrEditBar";
+import { useContext, useEffect } from "react";
+import { onSnapshot } from "firebase/firestore";
+import { TasksContext } from "../../context/TaskContext";
+
+interface IDatabaseTask {
+  id: string;
+  date?: string;
+}
 
 export function Home() {
   const navigate = useNavigate();
@@ -13,6 +21,27 @@ export function Home() {
       navigate("/");
     });
   }
+const {collectionTask,setTasks} = useContext(TasksContext)
+
+
+  useEffect(() => {
+    const updatesInRealTime = onSnapshot(collectionTask, (snapshot) => {
+      const databaseTask: IDatabaseTask[] = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+
+      const databaseTaskDates = databaseTask.filter((item) => item.date);
+
+      const databaseTaskOrder = databaseTaskDates.sort((a, b) => {
+        return Number(b.date) - Number(a.date);
+      });
+
+      setTasks(databaseTaskOrder);
+    });
+
+    return () => updatesInRealTime();
+  }, []);
 
   return (
     <div className={` relative min-h-screen h-screen`}>

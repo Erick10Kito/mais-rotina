@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Trash } from "@phosphor-icons/react";
+import { NotePencil, Trash } from "@phosphor-icons/react";
 import { TasksContext } from "../../context/TaskContext";
 
 interface ITarefaProps {
@@ -27,15 +27,17 @@ export function Tarefa({ title, id, completed }: ITarefaProps) {
 
         <p className="text-left m-0 text-[#F2F2F2]">{title}</p>
       </div>
-  
+      <div>
         <button
           onClick={() => TasksRepository.delete(id)}
           className="w-6 h-6 rounded-full text-blue-500 border-blue-300 checked:bg-blue-500 checked:border-transparent focus:outline-none"
         >
           <Trash size={20} color="white" />
         </button>
-      
-
+        <button className="w-6 h-6 rounded-full text-blue-500 border-blue-300 checked:bg-blue-500 checked:border-transparent focus:outline-none">
+          <NotePencil size={20} color="white" />
+        </button>
+      </div>
     </div>
   );
 }
