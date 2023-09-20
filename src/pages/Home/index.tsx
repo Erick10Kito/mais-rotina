@@ -21,8 +21,7 @@ export function Home() {
       navigate("/");
     });
   }
-const {collectionTask,setTasks} = useContext(TasksContext)
-
+  const { collectionTask, setTasks } = useContext(TasksContext);
 
   useEffect(() => {
     const updatesInRealTime = onSnapshot(collectionTask, (snapshot) => {

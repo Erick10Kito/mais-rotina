@@ -1,6 +1,7 @@
-import { useContext } from "react";
-import { Trash } from "@phosphor-icons/react";
+import { useContext, useState } from "react";
+import { Pencil, Trash } from "@phosphor-icons/react";
 import { TasksContext } from "../../context/TaskContext";
+import { Modal } from "../Modal";
 
 interface ITarefaProps {
   title: string;
@@ -10,6 +11,7 @@ interface ITarefaProps {
 
 export function Tarefa({ title, id, completed }: ITarefaProps) {
   const { TasksRepository } = useContext(TasksContext);
+  const [showPopupEdit, setShowPopupEdit] = useState(false);
 
   return (
     <div className="flex items-s tart justify-between p-4 self-stretch rounded-lg border border-[#333] bg-[#262626] ">
@@ -27,14 +29,28 @@ export function Tarefa({ title, id, completed }: ITarefaProps) {
 
         <p className="text-left m-0 text-[#F2F2F2]">{title}</p>
       </div>
-     
+
+      <div>
         <button
           onClick={() => TasksRepository.delete(id)}
           className="w-6 h-6 rounded-full text-blue-500 border-blue-300 checked:bg-blue-500 checked:border-transparent focus:outline-none"
         >
           <Trash size={20} color="white" />
         </button>
-    
+        <button
+          onClick={() => setShowPopupEdit(!showPopupEdit)}
+          className="w-6 h-6 rounded-full text-blue-500 border-blue-300 checked:bg-blue-500 checked:border-transparent focus:outline-none"
+        >
+          <Pencil size={20} color="white" />
+        </button>
+      </div>
+      {showPopupEdit && (
+        <Modal
+          id={id}
+          setShowPopupEdit={setShowPopupEdit}
+          showPopupEdit={showPopupEdit}
+        />
+      )}
     </div>
   );
 }

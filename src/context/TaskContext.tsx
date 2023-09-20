@@ -26,17 +26,17 @@ interface ITaskProviderProps {
 interface ITasksContextProps {
   TasksRepository: {
     read: ITarefa[];
-    update: string;
+
     create: (event: FormEvent) => void;
     delete: (TasktoDelete: string) => Promise<null>;
     completed: (taskId: string, completed: boolean) => Promise<void>;
+    edit: (id: string, newTitle: string) => Promise<void>;
   };
   handleNewTitleTaskChange: (event: ChangeEvent<HTMLInputElement>) => void;
   newTitleOfTask: string;
-  setTasks:React.Dispatch<React.SetStateAction<ITarefa[]>>
-  collectionTask:CollectionReference<DocumentData, DocumentData>
+  setTasks: React.Dispatch<React.SetStateAction<ITarefa[]>>;
+  collectionTask: CollectionReference<DocumentData, DocumentData>;
 }
-
 
 export const TasksContext = createContext({} as ITasksContextProps);
 
@@ -48,7 +48,6 @@ export function TasksProvider({ children }: ITaskProviderProps) {
 
   const userRefTask = doc(db, keyUserTasks, String(user?.uid));
   const collectionTask = collection(userRefTask, keyTask);
-
 
   async function handleDeleteTask(id: string) {
     if (confirm("Deseja excluir essa tarefa?")) {
@@ -77,9 +76,14 @@ export function TasksProvider({ children }: ITaskProviderProps) {
     setNewTitleOfTask("");
   }
 
+  async function handleEditTask(id: string, newTitle: string) {
+    const taskDocRef = doc(collectionTask, id);
+    await updateDoc(taskDocRef, { title: newTitle });
+  }
+
   const TasksRepository = {
     read: tasks,
-    update: "",
+    edit: handleEditTask,
     create: handleCreateTask,
     delete: handleDeleteTask,
     completed: updateCompletedTasks,
@@ -91,7 +95,7 @@ export function TasksProvider({ children }: ITaskProviderProps) {
         handleNewTitleTaskChange,
         newTitleOfTask,
         setTasks,
-        collectionTask
+        collectionTask,
       }}
     >
       {children}
