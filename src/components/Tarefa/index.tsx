@@ -13,6 +13,10 @@ export function Tarefa({ title, id, completed }: ITarefaProps) {
   const { TasksRepository } = useContext(TasksContext);
   const [showPopupEdit, setShowPopupEdit] = useState(false);
 
+  function handleOpenAndClosePopup() {
+    setShowPopupEdit(!showPopupEdit);
+  }
+
   return (
     <div className="flex items-s tart justify-between p-4 self-stretch rounded-lg border border-[#333] bg-[#262626] ">
       <div className="flex gap-2 items-start">
@@ -45,11 +49,7 @@ export function Tarefa({ title, id, completed }: ITarefaProps) {
         </button>
       </div>
       {showPopupEdit && (
-        <Modal
-          id={id}
-          setShowPopupEdit={setShowPopupEdit}
-          showPopupEdit={showPopupEdit}
-        />
+        <Modal id={id} handleOpenAndClosePopup={handleOpenAndClosePopup} />
       )}
     </div>
   );
