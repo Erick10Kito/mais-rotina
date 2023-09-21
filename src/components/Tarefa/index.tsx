@@ -34,7 +34,7 @@ export function Tarefa({ title, id, completed }: ITarefaProps) {
         <p className="text-left m-0 text-[#F2F2F2]">{title}</p>
       </div>
 
-      <div>
+      <div className="flex items-start">
         <button
           onClick={() => TasksRepository.delete(id)}
           className="w-6 h-6 rounded-full text-blue-500 border-blue-300 checked:bg-blue-500 checked:border-transparent focus:outline-none"

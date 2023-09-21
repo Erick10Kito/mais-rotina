@@ -25,7 +25,9 @@ export function AddOrEditBar({
   return (
     <form
       action=""
-      className="w-full flex gap-2 focus:outline-0"
+      className={`w-full flex gap-2 focus:outline-0 ${
+        type === "edit" && " grid grid-cols-[2fr_1fr] max-[479px]:grid-cols-1"
+      }`}
       onSubmit={(event) => {
         event.preventDefault();
         if (type === "add") {
@@ -47,10 +49,12 @@ export function AddOrEditBar({
         }
         value={type === "add" ? newTitleOfTask : newEditTaskTitle}
       />
-      <div className="flex gap-2">
+      <div className={`${type === "edit" && " gap-2"} flex`}>
         <button
           type="submit"
-          className="text-white text-sm font-bold bg-[#1E6F9F] flex p-4 gap-2 items-center rounded-lg "
+          className={`text-white text-sm font-bold bg-[#1E6F9F] flex p-4 gap-2 items-center rounded-lg  ${
+            type === "edit" && "w-full flex justify-center items-center"
+          }`}
         >
           {type === "add" ? "Criar" : "Salvar"}
           {type === "add" ? (
@@ -60,7 +64,7 @@ export function AddOrEditBar({
         {type === "edit" && (
           <button
             onClick={handleOpenAndClosePopup}
-            className="text-white text-sm font-bold bg-red-700 flex p-4 items-center rounded-lg"
+            className="text-white text-sm font-bold bg-red-700  p-4 rounded-lg w-full flex justify-center items-center"
           >
             Cancelar
           </button>
