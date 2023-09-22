@@ -66,19 +66,27 @@ export function TasksProvider({ children }: ITaskProviderProps) {
   }
 
   async function handleCreateTask(event: FormEvent) {
-    event.preventDefault();
-    const currentDate = new Date();
-    await addDoc(collectionTask, {
-      title: newTitleOfTask,
-      completed: false,
-      date: currentDate,
-    });
-    setNewTitleOfTask("");
+    if (newTitleOfTask === "") {
+      alert("Digite a sua tarefa");
+    } else {
+      event.preventDefault();
+      const currentDate = new Date();
+      await addDoc(collectionTask, {
+        title: newTitleOfTask,
+        completed: false,
+        date: currentDate,
+      });
+      setNewTitleOfTask("");
+    }
   }
 
   async function handleEditTask(id: string, newTitle: string) {
-    const taskDocRef = doc(collectionTask, id);
-    await updateDoc(taskDocRef, { title: newTitle });
+    if (newTitle === "") {
+      alert("Edite sua tarefa");
+    } else {
+      const taskDocRef = doc(collectionTask, id);
+      await updateDoc(taskDocRef, { title: newTitle });
+    }
   }
 
   const TasksRepository = {

@@ -34,7 +34,7 @@ export function AddOrEditBar({
           TasksRepository.create(event);
         } else if (id) {
           TasksRepository.edit(id, newEditTaskTitle);
-          handleOpenAndClosePopup?.();
+          newEditTaskTitle !== "" && handleOpenAndClosePopup?.();
         }
       }}
     >
