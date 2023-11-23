@@ -3,9 +3,10 @@ import { AddOrEditBar } from "../AddOrEditBar";
 interface IModalProps {
   id: string;
   handleOpenAndClosePopup: () => void;
+  title:string
 }
 
-export function Modal({ id, handleOpenAndClosePopup }: IModalProps) {
+export function Modal({ id, handleOpenAndClosePopup, title }: IModalProps) {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="fixed inset-0 bg-black opacity-50"></div>
@@ -15,6 +16,7 @@ export function Modal({ id, handleOpenAndClosePopup }: IModalProps) {
             type="edit"
             id={id}
             handleOpenAndClosePopup={handleOpenAndClosePopup}
+            title={title}
           />
         </div>
       </div>

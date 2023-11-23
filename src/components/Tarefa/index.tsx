@@ -49,7 +49,7 @@ export function Tarefa({ title, id, completed }: ITarefaProps) {
         </button>
       </div>
       {showPopupEdit && (
-        <Modal id={id} handleOpenAndClosePopup={handleOpenAndClosePopup} />
+        <Modal id={id} handleOpenAndClosePopup={handleOpenAndClosePopup} title={title}/>
       )}
     </div>
   );

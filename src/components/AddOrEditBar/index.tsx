@@ -6,17 +6,20 @@ interface IAddOrEditBar {
   type: "add" | "edit";
   id?: string;
   handleOpenAndClosePopup?: () => void;
+  title?:string
 }
 
 export function AddOrEditBar({
   type,
   id,
   handleOpenAndClosePopup,
+  title
 }: IAddOrEditBar) {
   const { TasksRepository, handleNewTitleTaskChange, newTitleOfTask } =
     useContext(TasksContext);
 
-  const [newEditTaskTitle, setNewEditTaskTitle] = useState(newTitleOfTask);
+  const [newEditTaskTitle, setNewEditTaskTitle] = useState(title || '');
+
 
   function handleSetNewEditTaskTitle(event: ChangeEvent<HTMLInputElement>) {
     setNewEditTaskTitle(event.target.value);
