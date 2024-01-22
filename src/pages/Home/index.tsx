@@ -47,13 +47,13 @@ export function Home() {
       <button
         title="Deslogar"
         onClick={handleSignOut}
-        className="text-white text-sm font-normal bg-[#1E6F9F] flex p-3 items-center rounded-full hover:opacity-75 fixed right-3 bottom-3 max-[479px]:p-2"
+        className="text-white text-sm font-normal bg-[#FB8C00] flex p-3 items-center rounded-full hover:opacity-75 fixed right-3 bottom-3 max-[479px]:p-2"
       >
         <SignOut size={20} color="white" weight="bold" />
       </button>
       <Header />
 
-      <div className="flex justify-center bg-[#1A1A1A]  px-4">
+      <div className="flex justify-center bg-[#F5F5F5]  px-4">
         <div className={`max-w-7xl w-full min-h-screen pb-10 `}>
           <div className="mt-[-26px] flex justify-center w-full">
             <AddOrEditBar type="add" />

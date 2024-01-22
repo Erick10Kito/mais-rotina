@@ -23,15 +23,15 @@ export function Login() {
   }
 
   return (
-    <div className="flex justify-center bg-[#1A1A1A] py-10">
-      <div className="max-w-7xl bg-[#0D0D0D] h-screen w-full rounded flex flex-col items-center justify-center py-10 gap-5">
+    <div className="flex justify-center bg-[#01579B] py-10">
+      <div className="max-w-7xl bg-[#F5F5F5] h-screen w-full rounded flex flex-col items-center justify-center py-10 gap-5">
         <div className="">
           <Logo />
         </div>
         <div className="max-w-xl w-full">
           <form className="flex flex-col gap-5">
             <input
-              className="bg-[#262626] border border-[#0D0D0D] p-4 w-full rounded-lg focus:outline-0 text-white"
+              className="bg-[#F5F5F5] border border-[#0D0D0D] p-4 w-full rounded-lg focus:outline-0 text-black"
               type="text"
               name="email"
               id="email"
@@ -42,7 +42,7 @@ export function Login() {
             />
 
             <input
-              className="bg-[#262626] border border-[#0D0D0D] p-4 w-full rounded-lg focus:outline-0 text-white"
+              className="bg-[#F5F5F5] border border-[#0D0D0D] p-4 w-full rounded-lg focus:outline-0 text-black"
               type="password"
               name="password"
               id="password"
@@ -53,22 +53,22 @@ export function Login() {
             />
             <a
               href="#"
-              className="text-[#5E60CE] flex justify-center transition hover:underline text-base"
+              className="text-[#01579B] flex justify-center transition hover:underline text-base"
             >
               Esqueceu sua senha?
             </a>
             <button
               onClick={handleSignIn}
               type="submit"
-              className="text-white text-xl font-bold bg-[#1E6F9F] p-4 rounded-lg hover:opacity-75 transition duration-[350ms] "
+              className="text-white text-xl font-bold bg-[#01579B] p-4 rounded-lg hover:opacity-75 transition duration-[350ms] "
             >
               Entrar
             </button>
             <div className="flex gap-1 items-center">
-              <p className="text-white text-base">Você não tem conta?</p>
+              <p className="text-black text-base">Você não tem conta?</p>
               <Link
                 to="/cadastro"
-                className="text-[#5E60CE] transition hover:underline text-base"
+                className="text-[#01579B] transition hover:underline text-base"
               >
                 Crie sua conta aqui
               </Link>

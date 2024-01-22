@@ -46,7 +46,7 @@ export function AddOrEditBar({
         placeholder={
           type === "add" ? "Adicione uma nova tarefa" : "Edite sua tarefa"
         }
-        className="bg-[#262626] border border-[#0D0D0D] p-4 w-full rounded-lg focus:outline-0 text-white"
+        className="bg-[#F5F5F5] border border-[#0D0D0D] p-4 w-full rounded-lg focus:outline-0 text-black"
         onChange={
           type === "add" ? handleNewTitleTaskChange : handleSetNewEditTaskTitle
         }
@@ -55,7 +55,7 @@ export function AddOrEditBar({
       <div className={`${type === "edit" && " gap-2"} flex`}>
         <button
           type="submit"
-          className={`text-white text-sm font-bold bg-[#1E6F9F] flex p-4 gap-2 items-center rounded-lg  ${
+          className={`text-white text-sm font-bold bg-[#01579B] flex p-4 gap-2 items-center rounded-lg  ${
             type === "edit" && "w-full flex justify-center items-center"
           }`}
         >
@@ -67,7 +67,7 @@ export function AddOrEditBar({
         {type === "edit" && (
           <button
             onClick={handleOpenAndClosePopup}
-            className="text-white text-sm font-bold bg-red-700  p-4 rounded-lg w-full flex justify-center items-center"
+            className="text-white text-sm font-bold bg-red-500  p-4 rounded-lg w-full flex justify-center items-center"
           >
             Cancelar
           </button>

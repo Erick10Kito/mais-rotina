@@ -18,13 +18,13 @@ export function Dashboard() {
     <div>
       <header className="pb-[25px] border-b border-[#333] flex justify-between items-center">
         <div className="flex gap-2 items-center">
-          <p className="text-[#4EA8DE] text-sm font-bold">Tarefas criadas</p>
+          <p className="text-[#FB8C00] text-sm font-bold">Tarefas criadas</p>
           <span className="text-[#D9D9D9] bg-[#333] py-[2px] px-2 rounded-full text-xs font-bold">
             {taskLength}
           </span>
         </div>
         <div className="flex gap-2 items-center">
-          <p className="text-[#8284FA] text-sm font-bold">Concluidas</p>
+          <p className="text-[#01579B] text-sm font-bold">Concluidas</p>
           <span className="text-[#D9D9D9] bg-[#333] py-[2px] px-2 rounded-full text-xs font-bold">
             {CompletedTasksTotal} de {taskLength}
           </span>
