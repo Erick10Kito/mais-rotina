@@ -1,11 +1,18 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Tarefa } from "../Tarefa";
 
 import { Clipboard } from "@phosphor-icons/react";
 import { TasksContext } from "../../context/TaskContext";
+import { TasksSettings } from "../TasksSettings";
+import { TaskSettingsContext } from "../../context/ListSettingsContext";
+
+
 
 export function Dashboard() {
   const { TasksRepository } = useContext(TasksContext);
+  const { ocultedTask } = useContext(TaskSettingsContext);
+  
+
   const CompletedTasks = TasksRepository.read.filter(
     (tarefa) => tarefa.completed
   );
@@ -24,10 +31,13 @@ export function Dashboard() {
           </span>
         </div>
         <div className="flex gap-2 items-center">
-          <p className="text-[#01579B] text-sm font-bold">Concluidas</p>
+          <div className="flex gap-2 items-center">
+            <p className="text-[#01579B] text-sm font-bold">Concluidas</p>
           <span className="text-[#D9D9D9] bg-[#333] py-[2px] px-2 rounded-full text-xs font-bold">
             {CompletedTasksTotal} de {taskLength}
           </span>
+          </div>
+         <TasksSettings/>
         </div>
       </header>
       <div
@@ -38,7 +48,7 @@ export function Dashboard() {
         {tasks.length > 0 ? (
           <div className="flex flex-col gap-3">
             {tasks.map((task) => (
-              <div key={task.id}>
+              <div key={task.id} className={`${task.completed && ocultedTask ? 'hidden':''}`}>
                 <Tarefa
                   title={task.title ? task.title : ""}
                   id={task.id}
