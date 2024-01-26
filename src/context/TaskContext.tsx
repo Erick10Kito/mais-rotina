@@ -43,11 +43,15 @@ export const TasksContext = createContext({} as ITasksContextProps);
 export function TasksProvider({ children }: ITaskProviderProps) {
   const { user } = useContext(Context);
   const [tasks, setTasks] = useState<ITarefa[]>([]);
-
+ 
   const [newTitleOfTask, setNewTitleOfTask] = useState("");
 
   const userRefTask = doc(db, keyUserTasks, String(user?.uid));
+  // Aqui estou passando o banco de dados, a chave de referencia da coleção criada no banco de dados, e o id do usuario
+  // keyUserTasks = é a chave da coleção onde os documentos do usuario estão armazenados
+  // constante userRefTask está usando a função doc para criar uma referência ao documento do usuário atualmente autenticado no Firestore
   const collectionTask = collection(userRefTask, keyTask);
+  // está criando uma referência para uma coleção específica no Firestore
 
   async function handleDeleteTask(id: string) {
     if (confirm("Deseja excluir essa tarefa?")) {
